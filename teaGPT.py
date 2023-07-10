@@ -5,7 +5,7 @@ import streamlit as st
 if os.environ["OPENAI_API_KEY"]:
     openai.api_key = os.environ["OPENAI_API_KEY"]
 else:
-    openai.api_key = st.secrets.openai_api_key
+    openai.api_key = st.secrets.OPENAI_API_KEY
 
 # ------------------------------------------------------------
 #
