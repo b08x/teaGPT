@@ -8,10 +8,13 @@ from langchain.callbacks import StreamlitCallbackHandler
 from langchain.chat_models import ChatOpenAI
 from langchain.tools import DuckDuckGoSearchRun
 
-if os.environ["OPENAI_API_KEY"]:
-    openai.api_key = os.environ["OPENAI_API_KEY"]
-else:
-    openai.api_key = st.secrets.OPENAI_API_KEY
+try:
+    if os.environ["OPENAI_API_KEY"]:
+        openai.api_key = os.environ["OPENAI_API_KEY"]
+    else:
+        openai.api_key = st.secrets.OPENAI_API_KEY
+except Exception as e:
+    st.write(e)
 
 
 with st.sidebar:

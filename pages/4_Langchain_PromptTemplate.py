@@ -5,10 +5,13 @@ import openai
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 
-if os.environ["OPENAI_API_KEY"]:
-    openai.api_key = os.environ["OPENAI_API_KEY"]
-else:
-    openai.api_key = st.secrets.OPENAI_API_KEY
+try:
+    if os.environ["OPENAI_API_KEY"]:
+        openai.api_key = os.environ["OPENAI_API_KEY"]
+    else:
+        openai.api_key = st.secrets.OPENAI_API_KEY
+except Exception as e:
+    st.write(e)
 
 
 st.title("🦜🔗 Langchain - Blog Outline Generator App")
@@ -30,7 +33,7 @@ def blog_outline(topic):
 with st.form("myform"):
     topic_text = st.text_input("Enter prompt:", "")
     submitted = st.form_submit_button("Submit")
-    if not openai_api_key:
+    if not openai.api_key:
         st.info("Please add your OpenAI API key to continue.")
     elif submitted:
         blog_outline(topic_text)

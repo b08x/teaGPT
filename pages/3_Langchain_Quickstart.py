@@ -5,10 +5,13 @@ import openai
 
 from langchain.llms import OpenAI
 
-if os.environ["OPENAI_API_KEY"]:
-    openai.api_key = os.environ["OPENAI_API_KEY"]
-else:
-    openai.api_key = st.secrets.OPENAI_API_KEY
+try:
+    if os.environ["OPENAI_API_KEY"]:
+        openai.api_key = os.environ["OPENAI_API_KEY"]
+    else:
+        openai.api_key = st.secrets.OPENAI_API_KEY
+except Exception as e:
+    st.write(e)
 
 
 st.title("🦜🔗 Langchain Quickstart App")
@@ -25,7 +28,7 @@ def generate_response(input_text):
 with st.form("my_form"):
     text = st.text_area("Enter text:", "What are 3 key advice for learning how to code?")
     submitted = st.form_submit_button("Submit")
-    if not openai_api_key:
+    if not openai.api_key:
         st.info("Please add your OpenAI API key to continue.")
     elif submitted:
         generate_response(text)

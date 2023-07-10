@@ -7,10 +7,6 @@ import os
 
 load_dotenv()
 
-st.session_state["OPENAI_API_KEY"] = st.secrets.openai_api_key
-
-openai_api_key = st.session_state["OPENAI_API_KEY"]
-
 def sidebar():
     with st.sidebar:
         st.markdown(

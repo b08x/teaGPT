@@ -31,10 +31,13 @@ EMBEDDING = "openai"
 VECTOR_STORE = "faiss"
 MODEL = "openai"
 
-if os.environ["OPENAI_API_KEY"]:
-    openai.api_key = os.environ["OPENAI_API_KEY"]
-else:
-    openai.api_key = st.secrets.OPENAI_API_KEY
+try:
+    if os.environ["OPENAI_API_KEY"]:
+        openai.api_key = os.environ["OPENAI_API_KEY"]
+    else:
+        openai.api_key = st.secrets.OPENAI_API_KEY
+except Exception as e:
+    st.write(e)
 
 # For testing
 # EMBEDDING, VECTOR_STORE, MODEL = ["debug"] * 3
