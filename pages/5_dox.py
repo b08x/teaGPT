@@ -48,7 +48,6 @@ bootstrap_caching()
 sidebar()
 
 
-
 uploaded_file = st.file_uploader(
     "Upload a pdf, docx, or txt file",
     type=["pdf", "docx", "txt"],
