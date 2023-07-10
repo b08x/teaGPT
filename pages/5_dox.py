@@ -3,6 +3,14 @@ import streamlit as st
 
 import openai
 
+try:
+    if os.environ["OPENAI_API_KEY"]:
+        openai.api_key = os.environ["OPENAI_API_KEY"]
+    else:
+        openai.api_key = st.secrets.OPENAI_API_KEY
+except Exception as e:
+    st.write(e)
+
 dox_dir = (os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 + '/pages/dox')
 
@@ -30,14 +38,6 @@ from core.qa import query_folder
 EMBEDDING = "openai"
 VECTOR_STORE = "faiss"
 MODEL = "openai"
-
-try:
-    if os.environ["OPENAI_API_KEY"]:
-        openai.api_key = os.environ["OPENAI_API_KEY"]
-    else:
-        openai.api_key = st.secrets.OPENAI_API_KEY
-except Exception as e:
-    st.write(e)
 
 # For testing
 # EMBEDDING, VECTOR_STORE, MODEL = ["debug"] * 3
